@@ -1,0 +1,39 @@
+---
+title: "distributions"
+output: html_notebook
+---
+
+The Python class Pmf is a Python dictionary that maps a set of values to their corresponding probabilities.
+
+example a six sided die with six values of equal probability.
+ 
+    pmf = Pmf()
+    for x in [1,2,3,4,5,6]:
+        pmf[x] = 1
+        
+    pmf.Print()
+ 
+
+This could be named list in R
+```{r pmf as list}
+pmf <-  as.list(rep(1,6))
+names(pmf) <- 1:6
+pmf
+```
+Or a tibble
+```{r pmf as tibble}
+library(tidyverse, quietly = TRUE)
+pmf <- tibble(values = 1:6, prob = rep(1,6))
+pmf
+```
+using the hash package
+```{r }
+library(hash, quietly = TRUE)
+pmf <- hash(  as.character(1:6), rep(1,6))
+pmf
+pmf$`2`
+```
+Other alternatives could be a matrix or S4 or R6 classes
+
+
+
