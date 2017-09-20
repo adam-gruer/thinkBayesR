@@ -5,7 +5,7 @@ output: html_notebook
 
 The Python class Pmf is a Python dictionary that maps a set of values to their corresponding probabilities.
 
-example a six sided die with six values of equal probability.
+ example a six sided die with six values of equal probability.
 
 ###Python code 
     pmf = Pmf()

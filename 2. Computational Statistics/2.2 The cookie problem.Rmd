@@ -1,0 +1,42 @@
+---
+title: "2.2 The Cookie Problem"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+#####Python code
+  pmf = Pmf()
+  pmf.Set('Bowl 1', 0.5)
+  pmf.Set('Bowl 2', 0.5)
+  
+  pmf.Mult('Bowl 1', 0.75)
+  pmf.Mult('Bowl 2', 0.5)
+
+  pmf.Normalize()
+
+#####R named vector
+```{r named vector}
+library(tidyverse)
+
+pmf <- c("Bowl 1" = 0.5,
+         "Bowl 2" = 0.5)
+
+Mult <- function(prior,hypo,likelihood){
+  prior[hypo] <- prior[hypo] * likelihood
+  prior
+}
+
+Normalize <- function(pmf){pmf / sum(pmf)}
+
+pmf <- pmf %>%
+          Mult("Bowl 1",0.75) %>%
+          Mult("Bowl 2",0.5) %>%
+          Normalize()
+    
+pmf
+
+pmf["Bowl 1"]
+pmf["Bowl 2"]
+
+```
