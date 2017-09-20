@@ -1,5 +1,5 @@
 ---
-title: "distributions"
+title: "1. Distributions"
 output: html_notebook
 ---
 
