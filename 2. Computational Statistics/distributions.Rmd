@@ -6,32 +6,64 @@ output: html_notebook
 The Python class Pmf is a Python dictionary that maps a set of values to their corresponding probabilities.
 
 example a six sided die with six values of equal probability.
- 
+
+###Python code 
     pmf = Pmf()
     for x in [1,2,3,4,5,6]:
         pmf[x] = 1
         
     pmf.Print()
- 
 
-This could be named list in R
+###R code 
+
+#####This could be named list in R
 ```{r pmf as list}
 pmf <-  as.list(rep(1,6))
 names(pmf) <- 1:6
 pmf
+
+normalize <- function(pmf) {
+  #use Reduce to apply `+` to each element of list
+  total = Reduce(`+`, pmf)
+  # map each element of list to a function dividing the element by the total 
+  Map(function(pmf){pmf / total}, pmf)
+}
+normalize(pmf)
+ 
+
 ```
-Or a tibble
+#####As a named vector
+```{r pmf as named vector}
+pmf <- rep(1,6)
+names(pmf) <- 1:6
+pmf
+normalize <- function(pmf){pmf / sum(pmf)}
+normalize(pmf)
+
+```
+
+#####Or a tibble
 ```{r pmf as tibble}
 library(tidyverse, quietly = TRUE)
 pmf <- tibble(values = 1:6, prob = rep(1,6))
 pmf
+
+normalize <- function(pmf) {
+pmf$prob <- pmf$prob / sum(pmf$prob)
+pmf
+}
+normalize(pmf)
 ```
-using the hash package
+#####using the hash package
 ```{r }
 library(hash, quietly = TRUE)
 pmf <- hash(  as.character(1:6), rep(1,6))
 pmf
-pmf$`2`
+normalize <- function(pmf) {
+  values(pmf) <- values(pmf) / sum(values(pmf))
+  pmf
+  }
+normalize(pmf)
 ```
 Other alternatives could be a matrix or S4 or R6 classes
 

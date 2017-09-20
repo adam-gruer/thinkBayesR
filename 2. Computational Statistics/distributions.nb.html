@@ -174,24 +174,104 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <p>The Python class Pmf is a Python dictionary that maps a set of values to their corresponding probabilities.</p>
 <p>example a six sided die with six values of equal probability.</p>
+<div id="python-code" class="section level3">
+<h3>Python code</h3>
 <pre><code>pmf = Pmf()
 for x in [1,2,3,4,5,6]:
     pmf[x] = 1
     
 pmf.Print()</code></pre>
-<p>This could be named list in R</p>
+</div>
+<div id="r-code" class="section level3">
+<h3>R code</h3>
+<div id="this-could-be-named-list-in-r" class="section level5">
+<h5>This could be named list in R</h5>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG1mJGAxYFxuXG5gYGAifQ== -->
-<pre class="r"><code>pmf$`1`
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG1mIDwtICBhcy5saXN0KHJlcCgxLDYpKVxubmFtZXMocG1mKSA8LSAxOjZcbnBtZlxuYGBgIn0= -->
+<pre class="r"><code>pmf &lt;-  as.list(rep(1,6))
+names(pmf) &lt;- 1:6
+pmf</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDFcbiJ9 -->
-<pre><code>[1] 1</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiJGAxYFxuWzFdIDFcblxuJGAyYFxuWzFdIDFcblxuJGAzYFxuWzFdIDFcblxuJGA0YFxuWzFdIDFcblxuJGA1YFxuWzFdIDFcblxuJGA2YFxuWzFdIDFcbiJ9 -->
+<pre><code>$`1`
+[1] 1
+
+$`2`
+[1] 1
+
+$`3`
+[1] 1
+
+$`4`
+[1] 1
+
+$`5`
+[1] 1
+
+$`6`
+[1] 1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm9ybWFsaXplIDwtIGZ1bmN0aW9uKHBtZikge1xuICAjdXNlIFJlZHVjZSB0byBhcHBseSBgK2AgdG8gZWFjaCBlbGVtZW50IG9mIGxpc3RcbiAgdG90YWwgPSBSZWR1Y2UoYCtgLCBwbWYpXG4gICMgbWFwIGVhY2ggZWxlbWVudCBvZiBsaXN0IHRvIGEgZnVuY3Rpb24gZGl2aWRpbmcgdGhlIGVsZW1lbnQgYnkgdGhlIHRvdGFsIFxuICBNYXAoZnVuY3Rpb24ocG1mKXtwbWYgLyB0b3RhbH0sIHBtZilcbn1cbm5vcm1hbGl6ZShwbWYpXG5gYGAifQ== -->
+<pre class="r"><code>normalize &lt;- function(pmf) {
+  #use Reduce to apply `+` to each element of list
+  total = Reduce(`+`, pmf)
+  # map each element of list to a function dividing the element by the total 
+  Map(function(pmf){pmf / total}, pmf)
+}
+normalize(pmf)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJGAxYFxuWzFdIDAuMTY2NjY2N1xuXG4kYDJgXG5bMV0gMC4xNjY2NjY3XG5cbiRgM2BcblsxXSAwLjE2NjY2NjdcblxuJGA0YFxuWzFdIDAuMTY2NjY2N1xuXG4kYDVgXG5bMV0gMC4xNjY2NjY3XG5cbiRgNmBcblsxXSAwLjE2NjY2NjdcbiJ9 -->
+<pre><code>$`1`
+[1] 0.1666667
+
+$`2`
+[1] 0.1666667
+
+$`3`
+[1] 0.1666667
+
+$`4`
+[1] 0.1666667
+
+$`5`
+[1] 0.1666667
+
+$`6`
+[1] 0.1666667</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIFxuYGBgIn0= -->
+<pre class="r"><code> </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="as-a-named-vector" class="section level5">
+<h5>As a named vector</h5>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG1mIDwtIHJlcCgxLDYpXG5uYW1lcyhwbWYpIDwtIDE6NlxucG1mXG5gYGAifQ== -->
+<pre class="r"><code>pmf &lt;- rep(1,6)
+names(pmf) &lt;- 1:6
+pmf</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiMSAyIDMgNCA1IDYgXG4xIDEgMSAxIDEgMSBcbiJ9 -->
+<pre><code>1 2 3 4 5 6 
+1 1 1 1 1 1 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm9ybWFsaXplIDwtIGZ1bmN0aW9uKHBtZil7cG1mIC8gc3VtKHBtZil9XG5ub3JtYWxpemUocG1mKVxuYGBgIn0= -->
+<pre class="r"><code>normalize &lt;- function(pmf){pmf / sum(pmf)}
+normalize(pmf)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAxICAgICAgICAgMiAgICAgICAgIDMgICAgICAgICA0ICAgICAgICAgNSAgICAgICAgIDYgXG4wLjE2NjY2NjcgMC4xNjY2NjY3IDAuMTY2NjY2NyAwLjE2NjY2NjcgMC4xNjY2NjY3IDAuMTY2NjY2NyBcbiJ9 -->
+<pre><code>        1         2         3         4         5         6 
+0.1666667 0.1666667 0.1666667 0.1666667 0.1666667 0.1666667 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Or a tibble</p>
+</div>
+<div id="or-a-tibble" class="section level5">
+<h5>Or a tibble</h5>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UsIHF1aWV0bHkgPSBUUlVFKVxucG1mIDwtIHRpYmJsZSh2YWx1ZXMgPSAxOjYsIHByb2IgPSByZXAoMSw2KSlcbnBtZlxuYGBgIn0= -->
@@ -199,14 +279,38 @@ pmf.Print()</code></pre>
 pmf &lt;- tibble(values = 1:6, prob = rep(1,6))
 pmf</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVF6UTdDSUF6dVlOTnNpY1prTCtBVDdPQUxlUEVKUE8zS2xKa2xDQXZEbjZPUDdObkRabUdRR0U2U2xMWWZYMm0vSGcvMXJxZ0xBQ0JBMHdRSXhUQWxlQ1dRUW03OUU0Q1dqZ0N3UWx1NHh6bDNiTFRNNDJ2cjkyOXc1MThmTmN4T2dnMERCcHNmc0Rnenc2cFdzeXVQNlJLeFFDY2VYTnladUNFNloybXZWUk9WNVZvOXFsQnFaWkVYWHRNMGZkQ05FWG1wZXRNcGlWUlNlclcvd3lVNkFsYjl0ZDJ5WVd1NnBoSGNqdTkzQnI1WjR2Y1ZZakkzcEpQL0tBczZ1THgwa2dlcGdqVmMrR1NOQXR6OFZhODdhY0tlRUIwcW93d0x2T0trUkVDY01oaS91YkZ3YnZVQkFBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["values"],"name":[1],"type":["int"],"align":["right"]},{"label":["prob"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"1"},{"1":"2","2":"1"},{"1":"3","2":"1"},{"1":"4","2":"1"},{"1":"5","2":"1"},{"1":"6","2":"1"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm9ybWFsaXplIDwtIGZ1bmN0aW9uKHBtZikge1xucG1mJHByb2IgPC0gcG1mJHByb2IgLyBzdW0ocG1mJHByb2IpXG5wbWZcbn1cbm5vcm1hbGl6ZShwbWYpXG5gYGAifQ== -->
+<pre class="r"><code>normalize &lt;- function(pmf) {
+pmf$prob &lt;- pmf$prob / sum(pmf$prob)
+pmf
+}
+normalize(pmf)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMVFTd3JDTUJDZHBoOXBRUkY2Z1o2Z0N5L2d4aE1JZ3R1MHBsSklrNUxHejlMTGVTa1gxbW1hUU1uS3dHUm1YdDVrNXMzeGNONWw1d3dBQ0lSUkFDVEVNQ0o0QlJCQk92a25RSmdiQXNBYUxUR1BjMjdZYUxIRk41UGZ2MC9tL091OWhuSE42VEJnc0YyQTJZVnFXamFLZHN5bkM4UWNuVmd3dVZOK1EzVE9vbDdKeWl0TGxYeVVyblNTUlY1NGplUDRRZmYxeUN2WjYxWUtwSkxjcWwwT0Z5Z1BXUGRkVTlDaDBHMVZjVGFOYjNjR3RsbGc5K1ZpTWpjTVIvdFI3SFF3Y1cwRmMxSTVyUmkzeVFZRm1QbkxYclZDdXowaE9wUmFhdXA0V1MyNVE0d3krUDRBUkFWUkhQVUJBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["values"],"name":[1],"type":["int"],"align":["right"]},{"label":["prob"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"0.1666667"},{"1":"2","2":"0.1666667"},{"1":"3","2":"0.1666667"},{"1":"4","2":"0.1666667"},{"1":"5","2":"0.1666667"},{"1":"6","2":"0.1666667"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>using the hash package</p>
+</div>
+<div id="using-the-hash-package" class="section level5">
+<h5>using the hash package</h5>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG1mXG5cbmBgYCJ9 -->
-<pre class="r"><code>pmf
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShoYXNoLCBxdWlldGx5ID0gVFJVRSlcbnBtZiA8LSBoYXNoKCAgYXMuY2hhcmFjdGVyKDE6NiksIHJlcCgxLDYpKVxucG1mXG5gYGAifQ== -->
+<pre class="r"><code>library(hash, quietly = TRUE)
+pmf &lt;- hash(  as.character(1:6), rep(1,6))
+pmf</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiPGhhc2g+IGNvbnRhaW5pbmcgNiBrZXktdmFsdWUgcGFpcihzKS5cbiAgMSA6IDFcbiAgMiA6IDFcbiAgMyA6IDFcbiAgNCA6IDFcbiAgNSA6IDFcbiAgNiA6IDFcbiJ9 -->
 <pre><code>&lt;hash&gt; containing 6 key-value pair(s).
@@ -217,12 +321,30 @@ pmf</code></pre>
   5 : 1
   6 : 1</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm9ybWFsaXplIDwtIGZ1bmN0aW9uKHBtZikge1xuICB2YWx1ZXMocG1mKSA8LSB2YWx1ZXMocG1mKSAvIHN1bSh2YWx1ZXMocG1mKSlcbiAgcG1mXG4gIH1cbm5vcm1hbGl6ZShwbWYpXG5gYGAifQ== -->
+<pre class="r"><code>normalize &lt;- function(pmf) {
+  values(pmf) &lt;- values(pmf) / sum(values(pmf))
+  pmf
+  }
+normalize(pmf)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPGhhc2g+IGNvbnRhaW5pbmcgNiBrZXktdmFsdWUgcGFpcihzKS5cbiAgMSA6IDAuMTY2NjY2N1xuICAyIDogMC4xNjY2NjY3XG4gIDMgOiAwLjE2NjY2NjdcbiAgNCA6IDAuMTY2NjY2N1xuICA1IDogMC4xNjY2NjY3XG4gIDYgOiAwLjE2NjY2NjdcbiJ9 -->
+<pre><code>&lt;hash&gt; containing 6 key-value pair(s).
+  1 : 0.1666667
+  2 : 0.1666667
+  3 : 0.1666667
+  4 : 0.1666667
+  5 : 0.1666667
+  6 : 0.1666667</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Other alternatives could be a matrix or S4 or R6 classes</p>
 <!-- rnb-text-end -->
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogImRpc3RyaWJ1dGlvbnMiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGUgUHl0aG9uIGNsYXNzIFBtZiBpcyBhIFB5dGhvbiBkaWN0aW9uYXJ5IHRoYXQgbWFwcyBhIHNldCBvZiB2YWx1ZXMgdG8gdGhlaXIgY29ycmVzcG9uZGluZyBwcm9iYWJpbGl0aWVzLg0KDQpleGFtcGxlIGEgc2l4IHNpZGVkIGRpZSB3aXRoIHNpeCB2YWx1ZXMgb2YgZXF1YWwgcHJvYmFiaWxpdHkuDQogDQogICAgcG1mID0gUG1mKCkNCiAgICBmb3IgeCBpbiBbMSwyLDMsNCw1LDZdOg0KICAgICAgICBwbWZbeF0gPSAxDQogICAgICAgIA0KICAgIHBtZi5QcmludCgpDQogDQoNClRoaXMgY291bGQgYmUgbmFtZWQgbGlzdCBpbiBSDQpgYGB7ciBwbWYgYXMgbGlzdH0NCnBtZiA8LSAgYXMubGlzdChyZXAoMSw2KSkNCm5hbWVzKHBtZikgPC0gMTo2DQpwbWYNCmBgYA0KT3IgYSB0aWJibGUNCmBgYHtyIHBtZiBhcyB0aWJibGV9DQpsaWJyYXJ5KHRpZHl2ZXJzZSwgcXVpZXRseSA9IFRSVUUpDQpwbWYgPC0gdGliYmxlKHZhbHVlcyA9IDE6NiwgcHJvYiA9IHJlcCgxLDYpKQ0KcG1mDQpgYGANCnVzaW5nIHRoZSBoYXNoIHBhY2thZ2UNCmBgYHtyIH0NCmxpYnJhcnkoaGFzaCwgcXVpZXRseSA9IFRSVUUpDQpwbWYgPC0gaGFzaCggIGFzLmNoYXJhY3RlcigxOjYpLCByZXAoMSw2KSkNCnBtZg0KcG1mJGAyYA0KYGBgDQpPdGhlciBhbHRlcm5hdGl2ZXMgY291bGQgYmUgYSBtYXRyaXggb3IgUzQgb3IgUjYgY2xhc3Nlcw0KDQoNCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogImRpc3RyaWJ1dGlvbnMiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGUgUHl0aG9uIGNsYXNzIFBtZiBpcyBhIFB5dGhvbiBkaWN0aW9uYXJ5IHRoYXQgbWFwcyBhIHNldCBvZiB2YWx1ZXMgdG8gdGhlaXIgY29ycmVzcG9uZGluZyBwcm9iYWJpbGl0aWVzLg0KDQpleGFtcGxlIGEgc2l4IHNpZGVkIGRpZSB3aXRoIHNpeCB2YWx1ZXMgb2YgZXF1YWwgcHJvYmFiaWxpdHkuDQoNCiMjI1B5dGhvbiBjb2RlIA0KICAgIHBtZiA9IFBtZigpDQogICAgZm9yIHggaW4gWzEsMiwzLDQsNSw2XToNCiAgICAgICAgcG1mW3hdID0gMQ0KICAgICAgICANCiAgICBwbWYuUHJpbnQoKQ0KDQojIyNSIGNvZGUgDQoNCiMjIyMjVGhpcyBjb3VsZCBiZSBuYW1lZCBsaXN0IGluIFINCmBgYHtyIHBtZiBhcyBsaXN0fQ0KcG1mIDwtICBhcy5saXN0KHJlcCgxLDYpKQ0KbmFtZXMocG1mKSA8LSAxOjYNCnBtZg0KDQpub3JtYWxpemUgPC0gZnVuY3Rpb24ocG1mKSB7DQogICN1c2UgUmVkdWNlIHRvIGFwcGx5IGArYCB0byBlYWNoIGVsZW1lbnQgb2YgbGlzdA0KICB0b3RhbCA9IFJlZHVjZShgK2AsIHBtZikNCiAgIyBtYXAgZWFjaCBlbGVtZW50IG9mIGxpc3QgdG8gYSBmdW5jdGlvbiBkaXZpZGluZyB0aGUgZWxlbWVudCBieSB0aGUgdG90YWwgDQogIE1hcChmdW5jdGlvbihwbWYpe3BtZiAvIHRvdGFsfSwgcG1mKQ0KfQ0Kbm9ybWFsaXplKHBtZikNCiANCg0KYGBgDQojIyMjI0FzIGEgbmFtZWQgdmVjdG9yDQpgYGB7ciBwbWYgYXMgbmFtZWQgdmVjdG9yfQ0KcG1mIDwtIHJlcCgxLDYpDQpuYW1lcyhwbWYpIDwtIDE6Ng0KcG1mDQpub3JtYWxpemUgPC0gZnVuY3Rpb24ocG1mKXtwbWYgLyBzdW0ocG1mKX0NCm5vcm1hbGl6ZShwbWYpDQoNCmBgYA0KDQojIyMjI09yIGEgdGliYmxlDQpgYGB7ciBwbWYgYXMgdGliYmxlfQ0KbGlicmFyeSh0aWR5dmVyc2UsIHF1aWV0bHkgPSBUUlVFKQ0KcG1mIDwtIHRpYmJsZSh2YWx1ZXMgPSAxOjYsIHByb2IgPSByZXAoMSw2KSkNCnBtZg0KDQpub3JtYWxpemUgPC0gZnVuY3Rpb24ocG1mKSB7DQpwbWYkcHJvYiA8LSBwbWYkcHJvYiAvIHN1bShwbWYkcHJvYikNCnBtZg0KfQ0Kbm9ybWFsaXplKHBtZikNCmBgYA0KIyMjIyN1c2luZyB0aGUgaGFzaCBwYWNrYWdlDQpgYGB7ciB9DQpsaWJyYXJ5KGhhc2gsIHF1aWV0bHkgPSBUUlVFKQ0KcG1mIDwtIGhhc2goICBhcy5jaGFyYWN0ZXIoMTo2KSwgcmVwKDEsNikpDQpwbWYNCm5vcm1hbGl6ZSA8LSBmdW5jdGlvbihwbWYpIHsNCiAgdmFsdWVzKHBtZikgPC0gdmFsdWVzKHBtZikgLyBzdW0odmFsdWVzKHBtZikpDQogIHBtZg0KICB9DQpub3JtYWxpemUocG1mKQ0KYGBgDQpPdGhlciBhbHRlcm5hdGl2ZXMgY291bGQgYmUgYSBtYXRyaXggb3IgUzQgb3IgUjYgY2xhc3Nlcw0KDQoNCg0K</div>
 
 
 
