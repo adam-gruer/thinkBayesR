@@ -1,0 +1,148 @@
+---
+title: "2.3 The Bayesian Framework"
+output: html_notebook
+---
+
+####Python Code
+
+```{python Python Cookie Class, eval=FALSE}
+"""This file contains code for use with "Think Bayes",
+by Allen B. Downey, available from greenteapress.com
+
+Copyright 2012 Allen B. Downey
+License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
+"""
+
+from thinkbayes import Pmf
+
+
+class Cookie(Pmf):
+    """A map from string bowl ID to probablity."""
+
+    def __init__(self, hypos):
+        """Initialize self.
+
+        hypos: sequence of string bowl IDs
+        """
+        Pmf.__init__(self)
+        for hypo in hypos:
+            self.Set(hypo, 1)
+        self.Normalize()
+
+    def Update(self, data):
+        """Updates the PMF with new data.
+
+        data: string cookie type
+        """
+        for hypo in self.Values():
+            like = self.Likelihood(data, hypo)
+            self.Mult(hypo, like)
+        self.Normalize()
+
+    mixes = {
+        'Bowl 1':dict(vanilla=0.75, chocolate=0.25),
+        'Bowl 2':dict(vanilla=0.5, chocolate=0.5),
+        }
+
+    def Likelihood(self, data, hypo):
+        """The likelihood of the data under the hypothesis.
+
+        data: string cookie type
+        hypo: string bowl ID
+        """
+        mix = self.mixes[hypo]
+        like = mix[data]
+        return like
+
+
+def main():
+    hypos = ['Bowl 1', 'Bowl 2']
+
+    pmf = Cookie(hypos)
+
+    pmf.Update('vanilla')
+
+    for hypo, prob in pmf.Items():
+        print hypo, prob
+
+
+if __name__ == '__main__':
+    main()
+```
+
+####R Code
+
+
+#####Cookie class
+The Cookie class defined here is a function that takes a vector of hypotheses
+and returns a named vector of equal probablities.
+
+```{r R Cookie Class}
+library(tidyverse, quietly = TRUE)
+
+Normalize <- function(pmf){pmf / sum(pmf)}
+
+Mult <- function(prior,hypo,likelihood){
+  prior[hypo] * likelihood
+}
+
+#return a named vector of probabilities, names are the hypotheses
+Cookie <- function(hypos){
+  
+  require(dplyr)
+
+    hypos %>%
+      length() %>%
+      rep(1, .) %>%
+      `names<-`(hypos)  %>%
+      Normalize()  
+}
+
+# mixes is a list of named numeric vectors
+mixes <- list(
+          "Bowl 1" = c(vanilla = 0.75, chocolate = 0.25),
+          "Bowl 2" = c(vanilla = 0.5, chocolate = 0.5)
+            )
+
+Likelihood <- function(data, hypo){
+ 
+  #todo should probably have a mixes argument rather than relying
+  # on there being a mixes object in the parent environment
+  
+  mix <- mixes[[hypo]]
+  mix[data]
+}
+
+Update <- function(pmf, data){
+  pmf %>%
+    names() %>%
+    vapply(Likelihood, c(like = 0.0), data = data) %>%
+    mapply(Mult, hypo = names(pmf), likelihood = ., MoreArgs = list(prior = pmf),
+           USE.NAMES = FALSE) %>%
+    Normalize()
+    }
+```
+#####Main
+```{r main}
+hypos = c("Bowl 1", "Bowl 2")
+
+pmf <- Cookie(hypos)
+
+pmf <- Update(pmf, "vanilla")
+
+pmf
+```
+#####Draw more than one cookie (with replacement)
+```{r}
+library(tidyverse, quietly = TRUE)
+
+hypos = c("Bowl 1", "Bowl 2")
+
+pmf <-  Cookie(hypos)
+
+dataset <-  c("vanilla","chocolate","vanilla")
+
+pmf <- purrr::reduce(dataset, Update, .init = pmf)
+pmf
+```
+

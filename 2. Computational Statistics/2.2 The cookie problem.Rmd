@@ -1,11 +1,11 @@
 ---
 title: "2.2 The Cookie Problem"
 output:
-  html_document: default
   html_notebook: default
 ---
 
 #####Python code
+```{python, eval=FALSE}
   pmf = Pmf()
   pmf.Set('Bowl 1', 0.5)
   pmf.Set('Bowl 2', 0.5)
@@ -14,6 +14,9 @@ output:
   pmf.Mult('Bowl 2', 0.5)
 
   pmf.Normalize()
+```
+
+
 
 #####R named vector
 ```{r named vector}
