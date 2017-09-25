@@ -1,0 +1,29 @@
+---
+title: "2.5 Encapsulating the Framework"
+output: html_notebook
+---
+
+This is an attempt to create an S3 class called **pmf**.
+
+need a
+
+- contructor, new_pmf()
+- validator, validate_pmf()
+- helper, pmf()
+
+in S3 a class is a base type (e.g. vector, list) with the class attribute set.
+
+My initial decision is that pmf will be a named double-precision vector .
+```{r pmf constructor}
+new_pmf <- function(x) {
+# Represents a a probability mass function.
+  stopifnot(is.double(x))
+  structure(x, class = "pmf")
+}
+x <- new_pmf(c(1,2,3))
+```
+
+
+
+
+
