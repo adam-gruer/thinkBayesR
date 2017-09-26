@@ -1,0 +1,132 @@
+---
+title: "The Dice  problem"
+output: html_notebook
+---
+
+```{r normalize}
+normalize <- function(x) {
+  #ensure  the values in the vector x add up to one
+  x /sum(x)
+  }
+```
+```{r mult}
+mult <- function(prior,hypo,likelihood){
+  prior[hypo] * likelihood
+}
+```
+
+```{r update}
+#Updates each hypothesis based on the data
+update <- function(pmf, data){
+    likelihoods <- vapply(names(pmf),likelihood, c(like = 0.0), data = data) 
+    pmf <- mapply(mult,
+                  hypo = names(pmf),
+                  likelihood = likelihoods,
+                  MoreArgs = list(prior = pmf),
+                  USE.NAMES = FALSE) 
+    normalize(pmf)
+    }
+```
+
+
+
+
+```{r pmf constructor}
+new_pmf <- function(hypos) {
+# Represents a a probability mass function.
+# return a named numeric vector of equal probabilities
+# from a character vector of hypotheses, with class pmf   
+       
+      l <- length(hypos)
+      pmf <- rep(1,l)
+      names(pmf) <- hypos
+      pmf <- normalize(pmf)
+      structure(pmf, class = "pmf")
+}
+
+```
+```{r pmf validator}
+validate_pmf <- function(x){
+  #more complex checking logic
+  #check all names are unique
+  if (anyDuplicated(names(x)) > 0) {
+    stop(
+      "All hypotheses must be unique",
+      call. = FALSE
+    )
+  
+  }
+  x
+}
+```
+
+```{r pmf helper}
+pmf <- function(hypos) {
+  validate_pmf(new_pmf(hypos))
+}
+```
+
+The class defined above will be helpful in the futue but could be replaced by just functions.
+Initial thoughts are that all that differs is the likelihood function for each class . Maybe I can just use S3 generics
+
+
+```{r likelihood generic}
+likelihood <- function(data, hypo, ...){
+  UseMethod("likelihood")
+}
+```
+
+```{r dice class}
+#Constructor
+dice_new <- function(x) {
+# a character vector of class dice   
+      stopifnot(is.numeric(x))
+      structure(x, class = "dice")
+}
+#Validator
+validate_dice<- function(x){
+  #complicated checks go here i.e. 
+  x
+}
+#helper
+dice <- function(data){
+  #public facing , todo: helpful errors
+  validate_dice(dice_new(data))
+}
+likelihood.dice <- local({
+  #this is a technique known as memoizaiton. using global assignment (the <<- operator ) in this local namespace.
+
+  function(data, hypo){
+    hypo <- as.numeric(hypo)
+      if (hypo < data) {
+           0
+            }
+      else {
+       1.0/hypo
+      }
+  
+  }
+})
+
+```
+
+
+```{r main}
+
+hypos  <-  c(4, 6, 8, 12, 20)
+
+
+dice_pmf <- pmf(hypos)
+
+data <- dice(6)
+dice_pmf <- update(dice_pmf, data)
+dice_pmf
+
+ 
+for(roll in c(6,8,7,7,5,4)) {
+ data <- dice(roll) 
+ dice_pmf <- update(dice_pmf, data) 
+}
+dice_pmf
+ 
+```
