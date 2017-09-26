@@ -1,21 +1,9 @@
 ---
-title: "2.5 Encapsulating the Framework"
+title: "The M & M  problem"
 output: html_notebook
 ---
 
-This is an attempt to create an S3 class called **pmf**.
-
-need a
-
-- contructor, new_pmf()
-- validator, validate_pmf()
-- helper, pmf()
-
-in S3 a class is a base type (e.g. vector, list) with the class attribute set.
-
-My initial decision is that pmf will be a named double-precision vector .
-
-```{r normalize}
+ ```{r normalize}
 normalize <- function(x) {
   #ensure  the values in the vector x add up to one
   x /sum(x)
@@ -88,36 +76,30 @@ likelihood <- function(data, hypo, ...){
 }
 ```
 
-```{r monty class}
+```{r m_and_m class}
 #Constructor
-new_monty <- function(x) {
+m_and_m <- function(x) {
 # a character vector of class monty   
       stopifnot(is.character(x))
-      structure(x, class = "monty")
+      structure(x, class = "m_and_m")
 }
 #Validator
-validate_monty <- function(x){
-  #complicated checks go here i.e. must be A, B or C
+validate_m_and_m <- function(x){
+  #complicated checks go here i.e. 
   x
 }
 #helper
-monty <- function(door = "B"){
+m_and_m <- function(data  ){
   #public facing , todo: helpful errors
-  validate_monty(new_monty(door))
+  validate_m_and_m(m_and_m(data))
 }
-```
-```{r}
-likelihood.monty <- function(data, hypo){
-    if (hypo == data) {
-      0
-    } else if (hypo == "A") {
-      0.5
-    } else {
-      1
-    }
+likelihood.m_and_m <- function(data, hypo){
+
   
 }
+
 ```
+
 
 
 
@@ -126,18 +108,5 @@ likelihood.monty <- function(data, hypo){
 
 
 ```{r main}
-hypos  <-  LETTERS[1:3]
-
-monty_pmf <- pmf(hypos)
-
-data <- monty("B")
-
-monty_pmf <- update(monty_pmf, data)
-
-monty_pmf
+ 
 ```
-
-
-
-
-
