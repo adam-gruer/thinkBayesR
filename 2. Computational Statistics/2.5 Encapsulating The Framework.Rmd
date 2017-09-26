@@ -14,13 +14,96 @@ need a
 in S3 a class is a base type (e.g. vector, list) with the class attribute set.
 
 My initial decision is that pmf will be a named double-precision vector .
-```{r pmf constructor}
-new_pmf <- function(x) {
-# Represents a a probability mass function.
-  stopifnot(is.double(x))
-  structure(x, class = "pmf")
+
+```{r normalize}
+normalize <- function(x) {
+  #ensure  the values in the vector x add up to one
+  x /sum(x)
+  }
+```
+```{r mult}
+mult <- function(prior,hypo,likelihood){
+  prior[hypo] * likelihood
 }
-x <- new_pmf(c(1,2,3))
+```
+
+```{r update}
+#Updates each hypothesis based on the data
+update <- function(pmf, data){
+    likelihoods <- vapply(names(pmf),likelihood, c(like = 0.0), data = data) 
+    pmf <- mapply(mult,
+                  hypo = names(pmf),
+                  likelihood = likelihoods,
+                  MoreArgs = list(prior = pmf),
+                  USE.NAMES = FALSE) 
+    normalize(pmf)
+    }
+```
+
+
+
+
+```{r pmf constructor}
+new_pmf <- function(hypos) {
+# Represents a a probability mass function.
+# return a named numeric vector of equal probabilities
+# from a character vector of hypotheses, with class pmf   
+       
+      l <- length(hypos)
+      pmf <- rep(1,l)
+      names(pmf) <- hypos
+      pmf <- normalize(pmf)
+      structure(pmf, class = "pmf")
+}
+
+```
+```{r pmf validator}
+validate_pmf <- function(x){
+  #more complex checking logic
+  #check all names are unique
+  if (anyDuplicated(names(x)) > 0) {
+    stop(
+      "All hypotheses must be unique",
+      call. = FALSE
+    )
+  
+  }
+  x
+}
+```
+
+```{r pmf helper}
+pmf <- function(hypos) {
+  validate_pmf(new_pmf(hypos))
+}
+```
+```{r}
+likelihoodMonty <- function(data, hypo){
+    if (hypo == data) {
+      0
+    } else if (hypo == "A") {
+      0.5
+    } else {
+      1
+    }
+  
+}
+```
+```{r likelihood generic}
+likelihood <- function(x, y, ...){
+  UseMethod("likelihood")
+}
+```
+
+```{r main}
+hypos  <-  LETTERS[1:3]
+
+monty <- pmf(hypos)
+
+data <- "C"
+monty <- update(monty, data)
+
+monty
 ```
 
 
