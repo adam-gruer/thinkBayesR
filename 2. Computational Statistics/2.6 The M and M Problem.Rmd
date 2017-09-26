@@ -3,7 +3,7 @@ title: "The M & M  problem"
 output: html_notebook
 ---
 
- ```{r normalize}
+```{r normalize}
 normalize <- function(x) {
   #ensure  the values in the vector x add up to one
   x /sum(x)
@@ -78,7 +78,7 @@ likelihood <- function(data, hypo, ...){
 
 ```{r m_and_m class}
 #Constructor
-m_and_m <- function(x) {
+m_and_m_new <- function(x) {
 # a character vector of class monty   
       stopifnot(is.character(x))
       structure(x, class = "m_and_m")
@@ -89,24 +89,63 @@ validate_m_and_m <- function(x){
   x
 }
 #helper
-m_and_m <- function(data  ){
+m_and_m <- function(data){
   #public facing , todo: helpful errors
-  validate_m_and_m(m_and_m(data))
+  validate_m_and_m(m_and_m_new(data))
 }
-likelihood.m_and_m <- function(data, hypo){
-
+likelihood.m_and_m <- local({
+  #this is a technique known as memoizaiton. using global assignment (the <<- operator ) in this local namespace.
   
-}
+  
+  mix94 <- c(brown=30,
+                 yellow=20,
+                 red=20,
+                 green=10,
+                 orange=10,
+                 tan=10)
+  mix96 <-  c(blue=24,
+                 green=20,
+                 orange=16,
+                 yellow=14,
+                 red=13,
+                 brown=13)
+ hypoA  <-  list(bag1=mix94, bag2=mix96)
+ hypoB <- list(bag1=mix96, bag2=mix94)
+ hypotheses  <-  list(A=hypoA, B=hypoB)
+  
+  
+  function(data, hypo){
+  bag <- data[1]
+  color <- data[2]
+  mix <- hypotheses[[hypo]][[bag]]
+  mix[color]
+  
+  
+  }
+})
 
 ```
-
-
-
-
-
-
+Decided to use used memoization to encapsulate the encoding of color mixes and mapping of hypothesis name to representation all within the **likelihood.m_and_m method.**
+This approach all existing functions and methods remain unchanged and I didn't have to refer to objects I had created in "main".
 
 
 ```{r main}
+#see the objects in the environment of the likelihood.m_and_m function
+objects(envir = environment(likelihood.m_and_m))
+hypos  <-  c("A","B")
+
+
+M_and_M_pmf <- pmf(hypos)
+
+data <- m_and_m(c("bag1","yellow"))
+
+M_and_M_pmf <- update(M_and_M_pmf, data)
+
+data <- m_and_m(c("bag2","green"))
+
+M_and_M_pmf <- update(M_and_M_pmf, data)
+
+M_and_M_pmf
+
  
 ```
