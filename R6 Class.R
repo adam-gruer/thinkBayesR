@@ -36,8 +36,8 @@ x$pmf
 Cookie <- R6Class("Cookie", 
             inherit = Pmf,
             public = list(
-              Update = function(){
-                
+              Update = function(data){
+                self$pmf
                 
               }
             )
