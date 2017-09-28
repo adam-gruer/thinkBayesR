@@ -53,6 +53,3 @@ DictWrapper <- R6Class("DictWrapper",
        }
       ))
 
-x <- DictWrapper$new(letters[1:3])
-x$d
-x$Mult("a",2)
