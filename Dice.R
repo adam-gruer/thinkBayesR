@@ -18,3 +18,7 @@ suite$Items()
 suite
 suite$Update(6)
 suite
+for (roll in c(6, 8, 7, 7, 5, 4)){
+  suite$Update(roll)
+}
+suite
