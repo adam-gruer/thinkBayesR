@@ -9,9 +9,12 @@ DictWrapper <- R6Class("DictWrapper",
         
         log = FALSE,
         
+        numeric_values = NULL,
+        
         initialize = function(values = NULL, name = ""){
           self$d <- hash()
           self$name <- name
+          self$numeric_values <- is.numeric(values)
           if(is.null(values)) return()
           self$InitSequence(values)
           if (length(self$d) > 0) self$Normalize()
@@ -43,15 +46,22 @@ DictWrapper <- R6Class("DictWrapper",
        },
        
        Items = function(){
-            lapply(keys(self$d), function(x){
+            
+            items <- lapply(keys(self$d), function(x){
               list(x, self$d[[x]] )
             })
-         
+            #if(self$numeric_values){
+             # items[order(as.numeric(keys(self$d)))]
+            #} else {
+             # items
+            #}
+           items
        },
        Mult = function(x, factor){
        self$d[[x]] = self$d[[x]] * factor
        }, 
        print = function(){
+         
          for (item in self$Items()){
            cat(item[[1]],item[[2]],"\n")
          }
