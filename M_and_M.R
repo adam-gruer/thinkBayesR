@@ -2,7 +2,7 @@ source("Suite.R")
 
 M_and_M <- R6Class("M_and_M",
                    inherit = Suite,
-                   public = list(
+                   private = list(
                      mix94 = c(brown = 30,
                                   yellow=20,
                                   red=20,
@@ -17,20 +17,20 @@ M_and_M <- R6Class("M_and_M",
                                        red=13,
                                        brown=13),
                      
-                     hypoA = function(){list(bag1 = self$mix94,
-                                          bag2 = self$mix96)},
+                     hypoA = function(){list(bag1 = private$mix94,
+                                          bag2 = private$mix96)},
                      
-                     hypoB = function(){list(bag1 = self$mix96,
-                                          bag2 = self$mix94)},
+                     hypoB = function(){list(bag1 = private$mix96,
+                                          bag2 = private$mix94)},
                      
-                     hypotheses = function(){list(A=self$hypoA(),
-                                               B=self$hypoB())
-                       },
-                     
+                     hypotheses = function(){list(A=private$hypoA(),
+                                               B=private$hypoB())
+                       }),
+                     public = list(
                      Likelihood = function(data, hypo){
                          bag <-  data[1]
                          color <- data[2]
-                         mix <- self$hypotheses()[[hypo]][[bag]]
+                         mix <- private$hypotheses()[[hypo]][[bag]]
                          mix[[color]]
                          
                      }
@@ -41,4 +41,4 @@ suite = M_and_M$new(LETTERS[1:2])
 suite$Update(c("bag1", "yellow"))
 suite$Update(c("bag2", "green"))
 
-suite
+suite$
