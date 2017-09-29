@@ -3,31 +3,42 @@ source("Suite.R")
 M_and_M <- R6Class("M_and_M",
                    inherit = Suite,
                    public = list(
-                     mix94 = hash(brown = 30,
+                     mix94 = c(brown = 30,
                                   yellow=20,
                                   red=20,
                                   green=10,
                                   orange=10,
                                   tan=10),
                      
-                     mix96 = hash(blue=24,
+                     mix96 = c(blue=24,
                                        green=20,
                                        orange=16,
                                        yellow=14,
                                        red=13,
                                        brown=13),
                      
-                     hypoA = hash(bag1=self$mix94, bag2=self$mix96),
-                     hypoB = hash(bag1=self$mix96, bag2=self$mix94),
+                     hypoA = function(){list(bag1 = self$mix94,
+                                          bag2 = self$mix96)},
                      
-                     hypotheses = hash(A=self$hypoA, B=self$hypoB),
+                     hypoB = function(){list(bag1 = self$mix96,
+                                          bag2 = self$mix94)},
+                     
+                     hypotheses = function(){list(A=self$hypoA(),
+                                               B=self$hypoB())
+                       },
                      
                      Likelihood = function(data, hypo){
                          bag <-  data[1]
                          color <- data[2]
-                         mix <- self$hypotheses[hypo][bag]
-                         mix[color]
+                         mix <- self$hypotheses()[[hypo]][[bag]]
+                         mix[[color]]
                          
                      }
                    ))
 
+suite = M_and_M$new(LETTERS[1:2])
+
+suite$Update(c("bag1", "yellow"))
+suite$Update(c("bag2", "green"))
+
+suite
