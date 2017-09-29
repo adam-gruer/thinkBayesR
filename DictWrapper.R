@@ -50,12 +50,12 @@ DictWrapper <- R6Class("DictWrapper",
             items <- lapply(keys(self$d), function(x){
               list(x, self$d[[x]] )
             })
-            #if(self$numeric_values){
-             # items[order(as.numeric(keys(self$d)))]
-            #} else {
-             # items
-            #}
-           items
+            if(self$numeric_values){
+              items[order(as.numeric(keys(self$d)))]
+            } else {
+              items
+            }
+           
        },
        Mult = function(x, factor){
        self$d[[x]] = self$d[[x]] * factor
