@@ -27,9 +27,7 @@ Monty <- R6Class("Monty",
 
 hypos <- LETTERS[1:3]
 pmf <- Monty$new(hypos)
+pmf
 data <- "B"
 pmf$Update(data)
-
-for (item in pmf$Items()){
-  cat(item[[1]],item[[2]],"\n")
-}
+pmf

@@ -50,6 +50,11 @@ DictWrapper <- R6Class("DictWrapper",
        },
        Mult = function(x, factor){
        self$d[[x]] = self$d[[x]] * factor
+       }, 
+       print = function(){
+         for (item in self$Items()){
+           cat(item[[1]],item[[2]],"\n")
+         }
        }
       ))
 
