@@ -4,9 +4,9 @@ Suite <- R6Class("Suite",
                  inherit = Pmf,
                  public = list(
                    Update = function(data){
-                     
+                     for (hypo in self$Values()){
                      like <- self$Likelihood(data, hypo)
-                     self$Mult(hypo, like)
+                     self$Mult(hypo, like)}
                      self$Normalize()
                      
                    },
