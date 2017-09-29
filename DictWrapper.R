@@ -8,7 +8,7 @@ DictWrapper <- R6Class("DictWrapper",
         d = NULL,
         
         log = FALSE,
-        
+        #flag if original values were numeric
         numeric_values = NULL,
         
         initialize = function(values = NULL, name = ""){
