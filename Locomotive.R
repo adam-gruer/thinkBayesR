@@ -1,4 +1,5 @@
 source("Suite.R")
+source("s3_Methods.R")
 
 Train <- R6Class("Train",
                  inherit = Suite,
@@ -11,10 +12,7 @@ Train <- R6Class("Train",
 hypos <- 1:1000
 suite <- Train$new(hypos)
 suite$Update(60)
-class(suite)
 
-x <- as.numeric(keys(suite$d))
-y <-  values(suite$d)
 
-df <- data.frame(x = x, y = y)
-plot(df[order(df$x),],type="l")
+df <- data.frame(suite)
+plot(df,type="l")
