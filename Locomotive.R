@@ -17,3 +17,16 @@ suite$Update(60)
 df <- data.frame(suite)
 plot(df,type="l")
 suite$Mean()
+
+#Different upper bounds and more data
+data <- c(60, 30, 90)
+upperBounds <- c(500, 1000, 2000)
+for(bound in upperBounds){
+  suite <- Train$new(1:bound)
+  for(dat in data){
+    suite$Update(dat)
+  }
+  cat(bound, suite$Mean(),"\n")
+}
+
+
