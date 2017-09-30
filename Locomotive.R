@@ -16,3 +16,4 @@ suite$Update(60)
 
 df <- data.frame(suite)
 plot(df,type="l")
+suite$Mean()
