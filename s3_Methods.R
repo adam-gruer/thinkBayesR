@@ -16,3 +16,20 @@ as.data.frame.DictWrapper <- function(x, ... , stringsAsFactors = FALSE){
   
 }
 as.data.frame(suite)
+
+#Create generic for Percentile
+Percentile <- function(x, percentage,...){
+  UseMethod("Percentile")
+}
+
+#Method where x has the class Pmf
+Percentile.Pmf <-  function(x, percentage,...){
+  p <- percentage / 100.0
+  total = 0
+  for (item in x.Items()){
+    total <- total + item[[2]] 
+  if (total >= p){
+    item[[1]]
+  }
+  }
+}
