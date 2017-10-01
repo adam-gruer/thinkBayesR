@@ -29,7 +29,9 @@ Percentile.Pmf <-  function(x, percentage,...){
   for (item in x$Items()){
     total <- total + item[[2]] 
   if (total >= p){
-    item[[1]]
+    val <- item[[1]]
+    break
   }
   }
+  val
 }
