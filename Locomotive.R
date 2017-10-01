@@ -64,3 +64,13 @@ for(bound in upperBounds){
   }
   cat(bound, suite$Mean(),"\n")
 }
+
+## Credible interval
+data <- c(60, 30, 90)
+suite <- Train$new(1:1000)
+for(dat in data){
+  suite$Update(dat)
+}
+
+cat(Percentile(suite,5), ",",Percentile(suite,95))
+
