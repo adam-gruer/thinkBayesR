@@ -4,6 +4,7 @@ Version: 0.0.0.9000
 Authors@R: person("Adam", "Gruer", email = "adamgruer@icloud.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends: R (>= 3.4.1)
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports: R6
