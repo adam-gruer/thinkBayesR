@@ -2,7 +2,7 @@ Dict <- R6::R6Class("Dict",
                     public = list(
                       initialize = function(values = numeric(), probs = numeric){
                         l = length(values)
-                        if (any)
+                        private$checkDuplicates(values)
                         
                         
                         
@@ -10,6 +10,11 @@ Dict <- R6::R6Class("Dict",
                     ),
                      private = list(
                       dict = NULL,
+                      check_duplicates <- function(values){
+                        if(anyDuplicated(values)){
+                          stop("No duplicate values are allowed", call. = FALSE)
+                        }
+                      }
                       
                       ,
                     )
