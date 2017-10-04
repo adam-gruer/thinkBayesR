@@ -1,4 +1,4 @@
-Cdf <- R6Class("Cdf",
+Cdf <- R6::R6Class("Cdf",
 #Represents a cumulative distribution function.
 #Attributes:
 #xs: sequence of values
