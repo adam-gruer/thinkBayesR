@@ -1,10 +1,10 @@
 as.data.frame.DictWrapper <- function(x, ... , stringsAsFactors = FALSE){
   if (x$numeric_values) {
-    a <- as.numeric(keys(x$d))
+    a <- as.numeric(hash::keys(x$d))
   } else {
-    a <- keys(x$d)
+    a <- hash::keys(x$d)
   }
-  b <-  values(x$d)
+  b <-  hash::values(x$d)
   
   df <- data.frame(values = a, probabilities = b, stringsAsFactors = stringsAsFactors)
   if (x$numeric_values){
@@ -15,7 +15,7 @@ as.data.frame.DictWrapper <- function(x, ... , stringsAsFactors = FALSE){
   
   
 }
-as.data.frame(suite)
+
 
 #Create generic for Percentile
 Percentile <- function(x, percentage,...){

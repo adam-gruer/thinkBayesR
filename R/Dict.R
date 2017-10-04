@@ -10,12 +10,12 @@ Dict <- R6::R6Class("Dict",
                     ),
                      private = list(
                       dict = NULL,
-                      check_duplicates <- function(values){
+                      check_duplicates = function(values){
                         if(anyDuplicated(values)){
                           stop("No duplicate values are allowed", call. = FALSE)
                         }
                       }
                       
-                      ,
+                      
                     )
                     )

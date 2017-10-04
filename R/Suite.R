@@ -1,6 +1,5 @@
-source("Pmf.R")
 
-Suite <- R6Class("Suite",
+Suite <- R6::R6Class("Suite",
                  inherit = Pmf,
                  public = list(
                    Update = function(data){

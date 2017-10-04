@@ -1,7 +1,5 @@
-library(R6)
-library(hash)
 
-DictWrapper <- R6Class("DictWrapper",
+DictWrapper <- R6::R6Class("DictWrapper",
       public = list(
         
         name = NULL,
@@ -12,7 +10,7 @@ DictWrapper <- R6Class("DictWrapper",
         numeric_values = NULL,
         
         initialize = function(values = NULL, name = ""){
-          self$d <- hash()
+          self$d <- hash::hash()
           self$name <- name
           self$numeric_values <- is.numeric(values)
           if(is.null(values)) return()
@@ -38,20 +36,20 @@ DictWrapper <- R6Class("DictWrapper",
        Normalize = function(){
          
          total <- self$Total()
-         values(self$d) <- values(self$d) / total
+         hash::values(self$d) <- hash::values(self$d) / total
        },
        
        Values = function(){
-              keys(self$d)
+              hash::keys(self$d)
        },
        
        Items = function(){
             
-            items <- lapply(keys(self$d), function(x){
+            items <- lapply(hash::keys(self$d), function(x){
               list(x, self$d[[x]] )
             })
             if(self$numeric_values){
-              items[order(as.numeric(keys(self$d)))]
+              items[order(as.numeric(hash::keys(self$d)))]
             } else {
               items
             }
