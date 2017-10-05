@@ -2,7 +2,7 @@ Package: thinkBayesR
 Title: Bayes Probabilities Classes
 Version: 0.0.0.9000
 Authors@R: person("Adam", "Gruer", email = "adamgruer@icloud.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: A set of classes for computational Bayes analysis
 Depends: R (>= 3.4.1)
 License: MIT + file LICENSE
 Encoding: UTF-8
