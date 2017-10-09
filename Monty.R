@@ -1,6 +1,5 @@
-source("Pmf.R")
 
-Monty <- R6Class("Monty",
+Monty <- R6::R6Class("Monty",
                   inherit = Pmf,
                   public = list(
                     
