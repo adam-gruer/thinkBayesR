@@ -1,6 +1,5 @@
-source("Pmf.R")
 
-Cookie <- R6Class("Cookie",
+Cookie <- R6::R6Class("Cookie",
                   inherit = Pmf,
                   public = list(
                     
@@ -15,8 +14,8 @@ Cookie <- R6Class("Cookie",
                       like <-  mix[[data]]
                     },
                     
-                    mixes = hash("Bowl 1" = hash("vanilla"= 0.75, "chocolate" = 0.25),
-                                 "Bowl 2" = hash("vanilla"= 0.5, "chocolate" = 0.5))
+                    mixes = list("Bowl 1" = c("vanilla"= 0.75, "chocolate" = 0.25),
+                                 "Bowl 2" = c("vanilla"= 0.5, "chocolate" = 0.5))
                   )
                   
 )
