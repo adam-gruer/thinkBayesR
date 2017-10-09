@@ -16,6 +16,10 @@ as.data.frame.DictWrapper <- function(x, ... , stringsAsFactors = FALSE){
   
 }
 
+length.Dict <- function(x){
+  length(x$values)
+}
+
 
 #Create generic for Percentile
 Percentile <- function(x, percentage,...){
