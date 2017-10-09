@@ -21,6 +21,15 @@ Dict <- R6::R6Class("Dict",
                                 }
                         
                         },
+                      get_prob = function(values){
+                        .subset(self$probs, self$values %in% values)
+                        
+                      },
+                      iteritems = function(){
+                        data.frame(values = self$values,
+                                             probs = self$probs,
+                                             stringsAsFactors = FALSE)
+                                            },
                       print = function(){
                         print(data.frame(values = self$values,
                                    probs = self$probs,
