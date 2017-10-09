@@ -1,29 +1,29 @@
-source("Suite.R")
+ 
 
-M_and_M <- R6Class("M_and_M",
+M_and_M <- R6::R6Class("M_and_M",
                    inherit = Suite,
                    private = list(
-                     mix94 = hash(brown = 30,
+                     mix94 = list(brown = 30,
                                   yellow=20,
                                   red=20,
                                   green=10,
                                   orange=10,
                                   tan=10),
                      
-                     mix96 = hash(blue=24,
+                     mix96 = list(blue=24,
                                        green=20,
                                        orange=16,
                                        yellow=14,
                                        red=13,
                                        brown=13),
                      
-                     hypoA = function(){hash(bag1 = private$mix94,
+                     hypoA = function(){list(bag1 = private$mix94,
                                           bag2 = private$mix96)},
                      
-                     hypoB = function(){hash(bag1 = private$mix96,
+                     hypoB = function(){list(bag1 = private$mix96,
                                           bag2 = private$mix94)},
                      
-                     hypotheses = function(){hash(A=private$hypoA(),
+                     hypotheses = function(){list(A=private$hypoA(),
                                                B=private$hypoB())
                        }),
                    public = list(
