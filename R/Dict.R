@@ -1,36 +1,40 @@
 Dict <- R6::R6Class("Dict",
                     public = list(
+                      values = numeric(),
+                      probs = numeric(),
                       initialize = function(values = numeric(), probs = numeric()){
                        
                          private$l <-  length(values)
-                        
                          self$add_items(values, probs)
                         
                         
                       },
                       add_items =  function(values = numeric(), probs = numeric()){
                         
-                        private$dict$values <- private$check_duplicates(
-                                                     c(private$dict$values,
+                        self$values <- private$check_duplicates(
+                                                     c(self$values,
                                                     values))
                         
-                        private$dict$probs <- c(private$dict$probs,probs)
+                        self$probs <- if (is.numeric(probs)) {
+                                c(self$probs,probs) } else {
+                                stop("Probabilities must be numeric", .call = FALSE)
+                                }
                         
                         },
                       print = function(){
-                        
+                        data.frame(values = self$values,
+                                   probs = self$probs,
+                                   stringsAsFactors = FALSE)
                       }
                     ),
                      private = list(
-                      dict = list(values = numeric(),
-                                  probs = numeric()
-                                  ),
-                      l = NULL,
-                      check_duplicates = function(values,...){
+
+                     l = NULL,
+                     check_duplicates = function(values,...){
                         if(anyDuplicated(values,nmax = private$l,...)){
                           stop("No duplicate values are allowed", call. = FALSE)
-                          invisible(values)
-                        }
+                          
+                        } else invisible(values)
                       }
                     )
                     )
