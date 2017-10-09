@@ -10,7 +10,7 @@ DictWrapper <- R6::R6Class("DictWrapper",
         numeric_values = NULL,
         
         initialize = function(values = NULL, name = ""){
-          self$d <- hash::hash()
+          self$d <- Dict$new()
           self$name <- name
           self$numeric_values <- is.numeric(values)
           if(is.null(values)) return()
@@ -19,50 +19,44 @@ DictWrapper <- R6::R6Class("DictWrapper",
         },
         
         InitSequence = function(values){
-           values <- as.character(values)
-           for (value in values)
-            self$Set(value, 1)
+           
+           self$Set(values, 1)
           
         },
         
         Set = function(x, y = 0){
-          self$d[[x]] <- y
+          self$d$add_items(x,rep.int(y,length(x)))
         },
         
         Total = function(){
-          sum(values(self$d))
+          sum(self$d$probs)
         },
         
        Normalize = function(){
          
          total <- self$Total()
-         hash::values(self$d) <- hash::values(self$d) / total
+         self$d$probs <- self$d$probs / total
        },
        
        Values = function(){
-              hash::keys(self$d)
+               self$d$values 
        },
        
        Items = function(){
             
-            items <- lapply(hash::keys(self$d), function(x){
-              list(x, self$d[[x]] )
-            })
-            if(self$numeric_values){
-              items[order(as.numeric(hash::keys(self$d)))]
-            } else {
-              items
-            }
+            self$d$iter_items()
            
        },
        Mult = function(x, factor){
-       self$d[[x]] = self$d[[x]] * factor
+         
+       self$d$probs[self$d$values == x] = self$d$probs[self$d$values == x] * factor
+       invisible(self)
        }, 
+       
        print = function(){
          
-         for (item in self$Items()){
-           cat(item[[1]],item[[2]],"\n")
+         self$d$print()
          }
-       }
+       
       ))
 
