@@ -9,5 +9,5 @@ pmf$Mult('Bowl 2', 0.5)
 pmf$Normalize()
 
 pmf$Prob("Bowl 1")
-pmf
+
 
