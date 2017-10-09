@@ -1,6 +1,6 @@
-source("Suite.R")
 
-Dice <- R6Class("Dice",
+
+Dice <- R6::R6Class("Dice",
                 inherit = Suite,
                 public = list(
                   Likelihood = function(data, hypo){
