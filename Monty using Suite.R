@@ -1,6 +1,6 @@
-source("Suite.R")
 
-Monty <- R6Class("Monty",
+
+Monty <- R6::R6Class("Monty",
                  inherit = Suite,
                  public = list(
                    Likelihood = function(data,hypo) {

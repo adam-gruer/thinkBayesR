@@ -9,10 +9,7 @@ Suite <- R6::R6Class("Suite",
                      self$Normalize()
                      
                    },
-                   print = function(){
-                     for (item in self$Items()){
-                       cat(item[[1]],item[[2]],"\n")
-                     }},
+                   
                     Likelihood  = function(){
                       stop("A Likelihood method needs to be implement for this subclass",
                            call. = FALSE)
