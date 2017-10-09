@@ -22,9 +22,10 @@ Dict <- R6::R6Class("Dict",
                         
                         },
                       print = function(){
-                        data.frame(values = self$values,
+                        print(data.frame(values = self$values,
                                    probs = self$probs,
-                                   stringsAsFactors = FALSE)
+                                   stringsAsFactors = FALSE),
+                              row.names = FALSE)
                       }
                     ),
                      private = list(
