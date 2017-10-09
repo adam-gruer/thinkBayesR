@@ -25,7 +25,7 @@ Dict <- R6::R6Class("Dict",
                         .subset(self$probs, self$values %in% values)
                         
                       },
-                      iteritems = function(){
+                      iter_items = function(){
                         data.frame(values = self$values,
                                              probs = self$probs,
                                              stringsAsFactors = FALSE)
