@@ -4,7 +4,7 @@ Dice <- R6::R6Class("Dice",
                 inherit = Suite,
                 public = list(
                   Likelihood = function(data, hypo){
-                    hypo <- as.numeric(hypo)
+                    
                     if (hypo < data){
                       0
                     } else {

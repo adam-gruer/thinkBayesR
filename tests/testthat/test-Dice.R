@@ -5,7 +5,7 @@ test_that("Dice problem can be correctly calculated", {
                       inherit = Suite,
                       public = list(
                         Likelihood = function(data, hypo){
-                          hypo <- as.numeric(hypo)
+                          
                           if (hypo < data){
                             0
                           } else {
