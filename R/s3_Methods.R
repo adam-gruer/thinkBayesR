@@ -32,5 +32,5 @@ Percentile <- function(x, percentage,...){
 #Method where x has the class Pmf
 Percentile.Pmf <-  function(x, percentage,...){
   p <- percentage / 100.0
-  suite$Values()[cumsum(suite$Probs()) >= p][1]
+  suite$Values()[findInterval(p,cumsum(suite$Probs()))+1] 
 }
