@@ -41,6 +41,9 @@ DictWrapper <- R6::R6Class("DictWrapper",
        Values = function(){
                self$d$values 
        },
+       Probs =  function(){
+         self$d$probs 
+       },
        
        Items = function(){
             
