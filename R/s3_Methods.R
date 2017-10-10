@@ -30,10 +30,13 @@ Percentile <- function(x, percentage,...){
 Percentile.Pmf <-  function(x, percentage,...){
   p <- percentage / 100.0
   total = 0
-  for (item in x$Items()){
-    total <- total + item[[2]] 
+  probs <- x$Probs()
+
+  
+  for (i in seq_along(probs)){
+    total <- total + probs[i]
   if (total >= p){
-    val <- item[[1]]
+    val <- x$Values()[i]
     break
   }
   }
