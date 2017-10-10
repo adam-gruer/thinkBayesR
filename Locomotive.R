@@ -1,11 +1,9 @@
-source("Suite.R")
-source("s3_Methods.R")
 
-Train <- R6Class("Train",
+Train <- R6::R6Class("Train",
                  inherit = Suite,
                  public = list(
                    Likelihood = function(data, hypo){
-                     hypo <- as.numeric(hypo)
+                     
                      ifelse(hypo < data, 0, 1 / hypo)
                    }
                  ))
@@ -14,8 +12,8 @@ suite <- Train$new(hypos)
 suite$Update(60)
 
 
-df <- data.frame(suite)
-plot(df,type="l")
+#df <- data.frame(suite)
+plot(suite$Items(),type="l")
 suite$Mean()
 
 #Different upper bounds and more data
@@ -30,7 +28,7 @@ for(bound in upperBounds){
 }
 
 
-Train <- R6Class("Train",
+Train <- R6::R6Class("Train",
                  inherit = Suite,
                  public = list(
                    InitSequence = function(values){
@@ -38,11 +36,11 @@ Train <- R6Class("Train",
                      #values <- as.character(values)
                      
                      for (value in values)
-                       self$Set(as.character(value), value ^ -1)
+                       self$Set(value, value ^ -1)
                      
                    },
                    Likelihood = function(data, hypo){
-                     hypo <- as.numeric(hypo)
+                      
                      ifelse(hypo < data, 0, 1 / hypo)
                    }
                  ))
@@ -51,8 +49,8 @@ hypos <- 1:1000
 suite <- Train$new(hypos)
 suite$Update(60)
 
-df <- data.frame(suite)
-plot(df,type="l")
+ 
+plot(suite$Items(),type="l")
 suite$Mean()
 
 data <- c(60, 30, 90)
