@@ -15,8 +15,8 @@ test_that("Dice problem can be correctly calculated", {
                       ))
   
   suite <- Dice$new(c(4, 6, 8, 12, 20))
-  suite$Update(6)
-  suite
+ suite$Update(6)
+
   df <- data.frame(values = c(4, 6, 8, 12, 20),
                    probs =     c(0,
                                  0.39215,

@@ -34,3 +34,5 @@ Percentile.Pmf <-  function(x, percentage,...){
   p <- percentage / 100.0
   suite$Values()[findInterval(p,cumsum(suite$Probs()))+1] 
 }
+
+

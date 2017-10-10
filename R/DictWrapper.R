@@ -61,5 +61,20 @@ DictWrapper <- R6::R6Class("DictWrapper",
          self$d$print()
          }
        
+      ),
+      private = list(
+        deep_clone = function(name, value) {
+          # With x$clone(deep=TRUE) is called, the deep_clone gets invoked once for
+          # each field, with the name and value.
+          if (inherits(value, "R6")) {
+            # field is R6 class, so create new instance
+            Dict$new(value$values,value$probs)
+          } else {
+            # For all other fields, just return the value
+            value
+          }
+        }
       ))
+
+
 
