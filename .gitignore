@@ -1,11 +1,8 @@
 
 \.Rproj\.user/shared/
-
 \.Rproj\.user/
 .Rproj.user
-
 \.Rhistory
-
 \.DS_Store
-
 Rprof\.out
+inst/doc
