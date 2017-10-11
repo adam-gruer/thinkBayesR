@@ -36,3 +36,18 @@ Percentile.Pmf <-  function(x, percentage,...){
 }
 
 
+# add two Pmfs
+`+.Pmf` <- function(x,y) {
+  x_vals <- x$Values()
+  y_vals <- y$Values()
+  outer <- outer(x_vals,y_vals,"+")
+  
+  values <- c(outer[,1], outer[length(x_vals),-1])
+  probs <- convolve(x$Probs(),rev(y$Probs()), type = "open")
+  pmf <- Pmf$new()
+  pmf$d$values <- values
+  pmf$d$probs <- probs
+  invisible(pmf)
+  
+}
+
